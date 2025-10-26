@@ -26,8 +26,6 @@ public class AfterStart_Fixes implements EconomyTickListener {
             devGameStart = false;
         }
 
-
-
         if (!devGameStart){
             Global.getSector().getListenerManager().removeListener(this);
         }
