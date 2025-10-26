@@ -14,15 +14,19 @@ public class AfterStart_Fixes implements EconomyTickListener {
 
     @Override
     public void reportEconomyMonthEnd() {
+        if(!Global.getSettings().isDevMode()) devGameStart = false;
+
         if (devGameStart)
         {
             if(Global.getSector().getPlayerStats().getPoints() == 0
                     && Global.getSector().getPlayerStats().getSkillsCopy().isEmpty())
             {
-                Global.getSector().getPlayerStats().addPoints(50);
+                Global.getSector().getPlayerStats().addPoints(100);
             }
             devGameStart = false;
         }
+
+
 
         if (!devGameStart){
             Global.getSector().getListenerManager().removeListener(this);

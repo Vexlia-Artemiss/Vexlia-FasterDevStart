@@ -68,21 +68,22 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             memoryMap.get(MemKeys.GLOBAL).set("$isDevMode", true, 0);
         }
 
-        //dialog.setPromptText("------------------------------");
         dialog.setPromptText("-");
 
         data.setCampaignHelpEnabled(SharedSettings.optBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, true));
 
         dialog.hideTextPanel();
         visual.showNewGameOptionsPanel(data);
-        //optionSelected(null, OptionId.INIT);
     }
 
     public void advance(float amount) {
-        if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
-            FullName RandomName = new FullName("DevMode", "Faster", FullName.Gender.ANY);
-            data.getPerson().setName(RandomName);
-            data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
+
+        if(Global.getSettings().isDevMode()) {
+            if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
+                FullName RandomName = new FullName("DevMode", "Faster", FullName.Gender.ANY);
+                data.getPerson().setName(RandomName);
+                data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
+            }
         }
         if (state == State.OPTIONS) {
             String name = data.getCharacterData().getName();
