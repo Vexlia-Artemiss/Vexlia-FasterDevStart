@@ -4,7 +4,7 @@
   "author": "Vexlia Artemiss",
   "utility": true,
   "version": { "major": '1', "minor": '0', "patch": '0' },
-  "description": "Shortens and simplifies evstart for modders who need to reload the game a lot."
+  "description": "Shortens and simplifies devstart for modders who need to reload the game a lot.",
   "gameVersion": "0.98a-RC8",
   "jars": [ "jars/VFDS_jar.jar" ],
   "modPlugin": "Vexlia.VFDS.VFDS_ModPlugin",
