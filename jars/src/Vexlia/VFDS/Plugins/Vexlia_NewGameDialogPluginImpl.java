@@ -17,6 +17,8 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.DumpMemory;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireAll;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireBest;
 
+import Vexlia.VFDS.Plugins.AfterStart_Fixes;
+
 public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
     public static String CAMPAIGN_HELP_POPUPS_OPTION_CHECKED = "campaignHelpPopupsOptionChecked";
