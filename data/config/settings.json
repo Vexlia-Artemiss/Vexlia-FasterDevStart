@@ -1,0 +1,14 @@
+{
+	# This file is optional and can be deleted if you aren't using it, but doesn't hurt to keep.
+
+	#You can copy plugin override from here
+	"plugins":{
+		 #"coreLifecyclePlugin":"com.fs.starfarer.api.impl.campaign.CoreLifecyclePluginImpl",
+	},
+
+
+    # This section is where we can define images that can be referenced ingame using Global.getSettings().getSpriteName("category", "name");
+	#"graphics":{
+	#	"category":{ "name":"graphics/ui/sector_age_young.png", }
+	#}
+}

@@ -1,0 +1,13 @@
+{
+  "id": "Vexlia_FDS", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
+  "name": "Vexlia's Faster DevStart", # Displayed to the player
+  "author": "Vexlia",
+  "utility": false,
+  "version": { "major": '1', "minor": '0', "patch": '0' },
+  "description": "Starsector IntelliJ template.",
+  "gameVersion": "0.98a-RC8",
+  "jars": [ "jars/VFDS_jar.jar" ],
+  "modPlugin": "Vexlia.VFDS.VFDS_ModPlugin",
+  "dependencies": [
+  ],
+}
