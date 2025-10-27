@@ -28,6 +28,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
         CONTINUE_CHOICES,
         DEVMODE_FAST_START,
         DEVMODE_FAST_START_NO_TIME_SKIP,
+        NEX_FAST_START,
         LEAVE,
     }
 
@@ -96,6 +97,10 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             if(Global.getSettings().getModManager().isModEnabled("nexerelin")){
                 options.setEnabled(OptionId.DEVMODE_FAST_START, false);
                 options.setEnabled(OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, false);
+                options.setEnabled(OptionId.NEX_FAST_START, true);
+            }
+            else{
+                options.setEnabled(OptionId.NEX_FAST_START, false);
             }
 
         } else if (state == State.CHOICES) {
@@ -165,7 +170,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
-                    fireBest("VFDS_DevStart_Trigger");
+                    fireBest("VFDS_DevStart_Autofire");
                     break;
                 case DEVMODE_FAST_START_NO_TIME_SKIP:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
@@ -179,6 +184,20 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
                     fireBest("VFDS_DevStart_NoTimeSkip_Trigger");
                     break;
+                case NEX_FAST_START:
+                    SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
+                    SharedSettings.saveIfNeeded();
+
+                    data.getPerson().setName(RandomName);
+
+                    dialog.showTextPanel();
+                    visual.showPersonInfo(data.getPerson(), true);
+                    options.clearOptions();
+                    state = State.CHOICES;
+                    fireBest("VFDS_nex_DevStart_Trigger");
+                    
+                    break;
+
             }
         }
     }
@@ -190,6 +209,9 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
         if(dev) {
             options.addOption("(VFDS) Dev Start", OptionId.DEVMODE_FAST_START, null);
             options.addOption("(VFDS) Dev Start (No time skip)", OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, null);
+            if (Global.getSettings().getModManager().isModEnabled("nexerelin")) {
+                options.addOption("(VFDS) Nex Fast Start", OptionId.NEX_FAST_START);
+            }
         }
         options.addOption("Leave", OptionId.LEAVE, null);
     }

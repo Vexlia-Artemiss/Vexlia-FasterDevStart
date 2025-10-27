@@ -2,8 +2,7 @@ id,trigger,conditions,script,text,options,notes
 # This file is not required by the game and can be deleted if you aren't using it, but doesn't hurt to keep either.,,,,,
 # Official rules.csv guide: https://fractalsoftworks.com/2023/11/13/you-merely-adopted-rules-csv-i-was-born-into-it/,,,,,,
 ,,,,,,
-VFDS_ngcDevStartOption_faster,VFDS_DevStart_Trigger,,"NGCAddCredits 2000
-FireBest VFDS_DevStart_Autofire",,,
+,,,,,,
 VFDS_Devstart_fire,VFDS_DevStart_Autofire,,"NGCAddShip ""tempest_Starting""
 NGCAddCargo RESOURCES crew 20
 NGCAddCargo RESOURCES supplies 20
@@ -19,8 +18,9 @@ NGCSetDifficulty normal
 NGCSetWithTimePass false
 NGCAddDevStartingScript
 NGCDone",,,
-VFDS_ngcDevStartOption2_faster,VFDS_DevStart_NoTimeSkip_Trigger,,"NGCAddCredits 2000
-FireBest VFDS_DevStart_noTimeSkip_Autofire",,,
+VFDS_ngcDevStartOption,VFDS_DevStart_Trigger,,"NGCAddCredits 2000
+FireBest VFDS_DevStart_Autofire",,,
+,,,,,,
 VFDS_Devstart_noTimeSkip_fire,VFDS_DevStart_noTimeSkip_Autofire,,"NGCAddShip ""medusa_Attack""
 NGCAddCargo RESOURCES crew 50
 NGCAddCargo RESOURCES supplies 40
@@ -36,4 +36,17 @@ NGCSetWithTimePass false
 NGCSetCustom customDevStart true
 NGCAddDevStartingScript
 NGCDone",,,
+VFDS_ngcDevStartOption2_faster,VFDS_DevStart_NoTimeSkip_Trigger,,"NGCAddCredits 2000
+FireBest VFDS_DevStart_noTimeSkip_Autofire",,,
+,,,,,,
+VFDS_nex_Devstart_fire,VFDS_nex_DevStart_Autofire,,"Nex_FastDevStartcmd
+VFDS_NGCAddShipAndComplement ""medusa_Starting""
+NGCSetWithTimePass false
+NGCAddCredits 1000000
+NGCAddCharacterPoints 0
+NGCDone",,,
+VFDS_nex_ngcDevStartOption,VFDS_nex_DevStart_Trigger,,"FireBest ExerelinNGCIntroPicker
+FireAll ExerelinNGCStep1
+FireAll ExerelinNGCOptions
+FireBest VFDS_nex_DevStart_Autofire",,,
 ,,,,,,

@@ -3,9 +3,13 @@
 
 	#You can copy plugin override from here
 	"plugins":{
-		 #"coreLifecyclePlugin":"com.fs.starfarer.api.impl.campaign.CoreLifecyclePluginImpl",
+		"newGameDialogPlugin":"Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl",
 	},
 
+
+    "ruleCommandPackages":[
+        "Vexlia.VFDS.rulecmd"
+    ],
 
     # This section is where we can define images that can be referenced ingame using Global.getSettings().getSpriteName("category", "name");
 	#"graphics":{
