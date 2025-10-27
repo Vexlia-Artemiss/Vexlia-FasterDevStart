@@ -12,14 +12,12 @@ import exerelin.campaign.ExerelinSetupData;
 import exerelin.campaign.PlayerFactionStore;
 import exerelin.campaign.questskip.QuestChainSkipEntry;
 import exerelin.utilities.NexConfig;
-import exerelin.utilities.NexFactionConfig;
 import exerelin.utilities.StringHelper;
 
 import java.util.List;
 import java.util.Map;
 
-
-public class Nex_FastDevStartcmd extends BaseCommandPlugin {
+public class VFDS_Nex_FastDevStartcmd extends BaseCommandPlugin {
 
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Token> params, Map<String, MemoryAPI> memoryMap) {
