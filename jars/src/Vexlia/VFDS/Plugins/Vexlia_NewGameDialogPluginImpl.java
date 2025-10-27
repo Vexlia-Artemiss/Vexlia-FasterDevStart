@@ -81,7 +81,11 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
         if(Global.getSettings().isDevMode()) {
             if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
-                FullName RandomName = new FullName("DevMode", "Faster", FullName.Gender.ANY);
+                FullName RandomName = new FullName("DevMode", "FastStart", FullName.Gender.ANY);
+
+                if(Global.getSettings().getModManager().isModEnabled("nexerelin"))
+                    RandomName = new FullName("DevMode", "NexFastStart", FullName.Gender.ANY);
+
                 data.getPerson().setName(RandomName);
                 data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
             }
@@ -93,16 +97,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             } else {
                 options.setEnabled(OptionId.CONTINUE_CHOICES, true);
             }
-
-            if(Global.getSettings().getModManager().isModEnabled("nexerelin")){
-                options.setEnabled(OptionId.DEVMODE_FAST_START, false);
-                options.setEnabled(OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, false);
-                options.setEnabled(OptionId.NEX_FAST_START, true);
-            }
-            else{
-                options.setEnabled(OptionId.NEX_FAST_START, false);
-            }
-
         } else if (state == State.CHOICES) {
 
             if (data.isDone()) {
@@ -120,8 +114,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
     }
 
     public void optionSelected(String text, Object optionData) {
-
-        FullName RandomName = new FullName("DevMode", "Faster", FullName.Gender.ANY);
 
         if (optionData == null) return;
 
@@ -164,19 +156,16 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
 
-                    data.getPerson().setName(RandomName);
-
                     dialog.showTextPanel();
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
-                    fireBest("VFDS_DevStart_Autofire");
+                    fireBest("VFDS_DevStart_Trigger");
                     break;
                 case DEVMODE_FAST_START_NO_TIME_SKIP:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
 
-                    data.getPerson().setName(RandomName);
 
                     dialog.showTextPanel();
                     visual.showPersonInfo(data.getPerson(), true);
@@ -187,8 +176,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                 case NEX_FAST_START:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
-
-                    data.getPerson().setName(RandomName);
 
                     dialog.showTextPanel();
                     visual.showPersonInfo(data.getPerson(), true);
@@ -220,7 +207,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
     private OptionId lastOptionMousedOver = null;
     public void optionMousedOver(String optionText, Object optionData) {
-
     }
 
     public Object getContext() {
