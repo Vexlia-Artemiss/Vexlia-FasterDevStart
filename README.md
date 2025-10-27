@@ -10,7 +10,9 @@ What mod does precisely?
 - Adds option on first sreeen to choice devstart, skiping pressing `Continue`.
 - This also allows you to click `Continue` right away. 
 - Skips skill point distribution screen, and gives skill points after start, if you still need them for testing.
-
+- Features fully work with Nexerelin (and use its devmode start values). 
 **Changes and options only appear if devmod is active.**
 
-Fully works with Nexerelin. Should be save to remove at any point.
+
+
+Should be save to remove at any point.
