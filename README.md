@@ -13,6 +13,4 @@ What mod does precisely?
 - Features fully work with Nexerelin (and use its devmode start values). 
 **Changes and options only appear if devmod is active.**
 
-
-
 Should be save to remove at any point.
