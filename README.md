@@ -6,12 +6,4 @@ Mod autosets the player name as "DevMode Faster", it just UI panels don't update
 
 **Changes and options only appear if devmod is active.**
 
-**ATTENTION: MOD ONLY WORKS IF YOU SWAP VANILLA PLUGIN WITH MINE IN:**
-`\starsector-core\data\config\setting.json`
-
-For best experience use lines from bellow:
-```
-#"newGameDialogPlugin":"com.fs.starfarer.api.impl.campaign.NewGameDialogPluginImpl",
-"newGameDialogPlugin":"Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl",
-```
-Doesn’t fully work with Nexerelin (same as vanilla devstart), but allows you to skip clicking Random to get a name. For safety, I disable mod's devstart options if nexerelin present. Mod is utility but to fully remove it you need to revert setting changes.
+Fully work with Nexerelin. Mod is utility.
