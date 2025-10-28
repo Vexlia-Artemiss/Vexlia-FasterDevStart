@@ -14,7 +14,7 @@
     {
       "major": 1,
       "minor": 2,
-      "patch": a # Can be a number, character or string (1, 2, a, b, "-RC2", etc)
+      "patch": b # Can be a number, character or string (1, 2, a, b, "-RC2", etc)
     },
 	
 	#"modThreadId": 0, # eg 8181
