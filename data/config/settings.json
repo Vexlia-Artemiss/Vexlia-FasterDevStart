@@ -1,6 +1,10 @@
 {
-	# This file is optional and can be deleted if you aren't using it, but doesn't hurt to keep.
 
+	# Automatically enables devmode if game started with added fast starts
+	"VFDS_auto_devmode":true,
+	# Turn off devmode for saving. Should prevent crashes for mods unable to be save with active devmode. 
+	"VFDS_safe_devmode":false,
+	
 	#You can copy plugin override from here
 	"plugins":{
 		"newGameDialogPlugin":"Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl",

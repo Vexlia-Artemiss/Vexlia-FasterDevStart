@@ -79,17 +79,20 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
     public void advance(float amount) {
 
-        if(Global.getSettings().isDevMode()) {
-            if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
-                FullName RandomName = new FullName("DevMode", "FastStart", FullName.Gender.ANY);
+        if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
+            FullName RandomName = new FullName("DevMode", "FastStart", FullName.Gender.ANY);
 
-                if(Global.getSettings().getModManager().isModEnabled("nexerelin"))
-                    RandomName = new FullName("DevMode", "NexFastStart", FullName.Gender.ANY);
+            if(Global.getSettings().getModManager().isModEnabled("nexerelin"))
+                RandomName = new FullName("DevMode", "NexFastStart", FullName.Gender.ANY);
 
-                data.getPerson().setName(RandomName);
-                data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
-            }
+            data.getPerson().setName(RandomName);
+            data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
         }
+
+        if(Global.getSettings().isDevMode()) {
+            Global.getSettings().setDevMode(false);
+        }
+
         if (state == State.OPTIONS) {
             String name = data.getCharacterData().getName();
             if (name == null || name.isEmpty()) {
@@ -181,6 +184,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
+                    //memoryMap.get(MemKeys.GLOBAL).set("$isVFDS", true);
                     fireBest("VFDS_nex_DevStart_Trigger");
 
                     break;
@@ -193,14 +197,17 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
         options.clearOptions();
         boolean dev = Global.getSettings().isDevMode();
         options.addOption("Continue", OptionId.CONTINUE_CHOICES, null);
+
+        if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) {
+            options.addOption("(VFDS) Fast Start", OptionId.DEVMODE_FAST_START, null);
+            options.addOption("(VFDS) Fast Start (No time skip)", OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, null);
+        }
+        else if (Global.getSettings().getModManager().isModEnabled("nexerelin")) {
+            options.addOption("(VFDS) Nexerelin Fast Start", OptionId.NEX_FAST_START);
+        }
+
         if(dev) {
-            if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) {
-                options.addOption("(VFDS) Fast Start", OptionId.DEVMODE_FAST_START, null);
-                options.addOption("(VFDS) Fast Start (No time skip)", OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, null);
-            }
-            else if (Global.getSettings().getModManager().isModEnabled("nexerelin")) {
-                options.addOption("(VFDS) Nexerelin Fast Start", OptionId.NEX_FAST_START);
-            }
+
         }
         options.addOption("Leave", OptionId.LEAVE, null);
     }

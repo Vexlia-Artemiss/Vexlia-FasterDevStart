@@ -17,7 +17,9 @@ NGCSetStartingLocation hyperspace -10000 -10000
 NGCSetDifficulty normal
 NGCSetWithTimePass false
 NGCAddDevStartingScript
-NGCDone",,,
+NGCDone
+
+$global.isVFDS = true",,,
 ,,,,,,
 VFDS_ngcDevStartOption2_faster,VFDS_DevStart_NoTimeSkip_Trigger,,"NGCAddShip ""medusa_Attack""
 NGCAddCargo RESOURCES crew 50
@@ -33,7 +35,9 @@ NGCSetDifficulty normal
 NGCSetWithTimePass false
 NGCSetCustom customDevStart true
 NGCAddDevStartingScript
-NGCDone",,,
+NGCDone
+
+$global.isVFDS = true",,,
 ,,,,,,
 VFDS_nex_ngcDevStartOption,VFDS_nex_DevStart_Trigger,,"FireBest ExerelinNGCIntroPicker
 FireAll ExerelinNGCStep1
@@ -43,5 +47,7 @@ VFDS_NGCAddShipAndComplement ""medusa_Starting""
 NGCSetWithTimePass false
 NGCAddCredits 1000000
 NGCAddCharacterPoints 0
-NGCDone",,,
+NGCDone
+
+$global.isVFDS = true",,,
 ,,,,,,
