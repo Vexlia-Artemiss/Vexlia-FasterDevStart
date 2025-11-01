@@ -1,9 +1,11 @@
 package Vexlia.VFDS;
 
+import Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Priority;
 import org.json.JSONException;
@@ -15,6 +17,8 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
     public static boolean AUTO_DEVMODE = false;
     public static boolean SAFE_DEVMODE = true;
+
+    private static boolean IS_VFDS = false;
 
     private boolean isActiveDevmode = false;
 
@@ -31,12 +35,10 @@ public class VFDS_ModPlugin extends BaseModPlugin {
     public void onNewGameAfterEconomyLoad() {
         super.onNewGameAfterEconomyLoad();
 
-        MemoryAPI sector_mem = Global.getSector().getMemoryWithoutUpdate();
+        IS_VFDS = Vexlia_NewGameDialogPluginImpl.isFVDS;
 
-        if (sector_mem.getBoolean("$isVFDS")) {
-            if (Global.getSector().getPlayerStats().getPoints() == 0 && Global.getSector().getPlayerStats().getSkillsCopy().isEmpty()) {
-                Global.getSector().getPlayerStats().addPoints(100);
-            }
+        if (IS_VFDS) {
+            Global.getSector().getPlayerStats().addPoints(100);
         }
 
         if (SAFE_DEVMODE || AUTO_DEVMODE) {

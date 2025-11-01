@@ -25,6 +25,8 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
     public static String CAMPAIGN_HELP_POPUPS_OPTION_CHECKED = "campaignHelpPopupsOptionChecked";
 
+    public static boolean isFVDS = false;
+
     private static enum OptionId {
         INIT,
         CONTINUE_CHOICES,
@@ -159,7 +161,9 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                 case LEAVE:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
+                    isFVDS = false;
                     dialog.dismissAsCancel();
+
                     break;
                 case CONTINUE_CHOICES:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
@@ -169,7 +173,10 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
+
+                    isFVDS = false;
                     fireBest("BeginNewGameCreation");
+
                     break;
                 case DEVMODE_FAST_START:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
@@ -179,7 +186,10 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
+
+                    isFVDS = true;
                     fireBest("VFDS_DevStart_Trigger");
+
                     break;
                 case DEVMODE_FAST_START_NO_TIME_SKIP:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
@@ -189,7 +199,10 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
+
+                    isFVDS = true;
                     fireBest("VFDS_DevStart_NoTimeSkip_Trigger");
+
                     break;
                 case NEX_FAST_START:
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
@@ -199,6 +212,8 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
+
+                    isFVDS = true;
                     fireBest("VFDS_nex_DevStart_Trigger");
 
                     break;
