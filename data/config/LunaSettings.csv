@@ -1,6 +1,18 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-luna_exampleHeader,VFDS Settings,Header,,,,,,
-luna_exampleText,Example Text Field,Text,Some settings for VFDS.,,,,,
-VFDS_auto_devmode,AUTO DEVMODE,Boolean,false,,Set true to enable automatic devmode activation after game start (independent of starts choosen and save loaded),,,
-VFDS_safe_devmode,SAFE DEVMODE,Boolean,true,,"Set true to enable devmode swithing off before saving (should prevent crashes for mods which can't be save with active devmode)
-Devmode is reenabled after save, so in most cases in should be seemless.",,,
+VFDS_header,VFDS Settings,Header,Feature Settings,,,,,
+VFDS_Text,Example Text Field,Text,Some settings for VFDS.,,,,,
+VFDS_auto_devmode,AUTO DEVMODE,Boolean,false,,"Set true to enable devmode activation after game start 
+[Independent of start chosen and save loaded]
+",,,
+VFDS_safe_devmode,SAFE DEVMODE,Boolean,true,,"Set true to enable devmode switching off before saving.
+Devmode is reenabled after save, so in most cases it should be seamless.
+[Should prevent crashes for mods which can't create saves with active devmode]",,,
+,,,,,,,,
+VFDS_header2,VFDS Settings,Header,Autoset Name Settings,,,,,
+VFDS_Text,Example Text Field,Text,I have gonne with static default name as it makes cleaning save folder much easier. You can change them bellow for any reason.,,,,,
+VFDS_Spacer1,Example Text Field,Text,              ,,,,,
+VFDS_FirstName,Default First Name,String,DevMode,,Change if you want to customize the autoset first name.,,,
+VFDS_LastName,Default Last Name,String,FastStart,,Change if you want to customize the autoset last name.,,,
+VFDS_Spacer,Example Text Field,Text,              ,,,,,
+VFDS_NexerelinFirstName,Nexerelin First Name,String,DevMode,,Change if you want to customize the autoset first name for when [Nexerelin is active].,,,
+VFDS_NexerelinLastName,Mexerelin First Name,String,NexFastStart,,Change if you want to customize the autoset last name for when [Nexerelin is active].,,,

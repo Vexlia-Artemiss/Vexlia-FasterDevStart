@@ -12,14 +12,16 @@ import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.impl.SharedSettings;
 import com.fs.starfarer.api.impl.campaign.DevMenuOptions;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.rulecmd.DumpMemory;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireAll;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireBest;
-
-import Vexlia.VFDS.Plugins.AfterStart_Fixes;
+import lunalib.lunaSettings.LunaSettings;
 
 public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
+
+    String FirstName = "DevMode";
+
+    String LastName = "FastStart";
 
     public static String CAMPAIGN_HELP_POPUPS_OPTION_CHECKED = "campaignHelpPopupsOptionChecked";
 
@@ -80,10 +82,24 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
     public void advance(float amount) {
 
         if (data.getCharacterData().getName() == null || data.getCharacterData().getName().isEmpty()) {
-            FullName RandomName = new FullName("DevMode", "FastStart", FullName.Gender.ANY);
 
-            if(Global.getSettings().getModManager().isModEnabled("nexerelin"))
-                RandomName = new FullName("DevMode", "NexFastStart", FullName.Gender.ANY);
+            if (Global.getSettings().getModManager().isModEnabled("lunalib")) {
+                FirstName = LunaSettings.getString("Vexlia_FDS", "VFDS_FirstName");
+                LastName = LunaSettings.getString("Vexlia_FDS", "VFDS_LastName");
+            }
+
+            if(Global.getSettings().getModManager().isModEnabled("nexerelin")) {
+
+                FirstName = "DevMode";
+                LastName = "NexFastStart";
+
+                if (Global.getSettings().getModManager().isModEnabled("lunalib")) {
+                    FirstName = LunaSettings.getString("Vexlia_FDS", "VFDS_NexerelinFirstName");
+                    LastName = LunaSettings.getString("Vexlia_FDS", "VFDS_NexerelinLastName");
+                }
+            }
+
+            FullName RandomName = new FullName(FirstName, LastName, FullName.Gender.ANY);
 
             data.getPerson().setName(RandomName);
             data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
@@ -169,7 +185,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
 
-
                     dialog.showTextPanel();
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
@@ -184,11 +199,9 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     visual.showPersonInfo(data.getPerson(), true);
                     options.clearOptions();
                     state = State.CHOICES;
-                    //memoryMap.get(MemKeys.GLOBAL).set("$isVFDS", true);
                     fireBest("VFDS_nex_DevStart_Trigger");
 
                     break;
-
             }
         }
     }
@@ -206,9 +219,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             options.addOption("(VFDS) Nexerelin Fast Start", OptionId.NEX_FAST_START);
         }
 
-        if(dev) {
-
-        }
         options.addOption("Leave", OptionId.LEAVE, null);
     }
 
