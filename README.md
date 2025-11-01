@@ -2,12 +2,7 @@
 
 Small QoL utility mod to add fast start options right on the new game creation screen and get to sector generation in one click. Created mostly for modders who need to reload the game a lot.
 
-Mod's Github
-
-Download
-
 Should be safe to remove at any point.
-
 
 What mod does precisely?
 
@@ -18,7 +13,6 @@ Note: UI panel doesn't update, but name is set.
 - Fast Start is equivalent to devmode start in stats.
 - Adds similar fast start for Nexerelin (and use its devmode start values).
 
-
 Also supports few additional features changeable with LunaLib:
 
 Safe Devmode enables devmode switching off before saving. Devmode is reenabled after save, so in most cases it should be seamless. [Should prevent crashes for mods which can't create saves with active devmode.]
@@ -28,7 +22,6 @@ Auto Devmode activates devmode after game creation or load. [Independent of star
 Note: "Safe Devmode" is enabled without active Lunalib, and "Auto devmode" disabled without active Lunalib
 
 Ability to change strings for autoset player name (separate ones for if Nexerelin is active or not).
-
 
 ## Credits:
 Vexlia Artemiss for being me and also mod author.
