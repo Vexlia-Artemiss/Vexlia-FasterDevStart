@@ -3,7 +3,7 @@
   "name": "Vexlia's Faster DevStart", # Displayed to the player
   "author": "Vexlia Artemiss",
   "utility": true,
-  "version": { "major": '1', "minor": '3', "patch": 'a' },
+  "version": { "major": '1', "minor": '3', "patch": 'b' },
   "description": "Small QoL utility mod to add fast start options right on new game creation screen and get into sector creating in one click. Created mostly for modders who need to reload the game a lot.",
   "gameVersion": "0.98a-RC8",
   "jars": [ "jars/VFDS_jar.jar" ],
