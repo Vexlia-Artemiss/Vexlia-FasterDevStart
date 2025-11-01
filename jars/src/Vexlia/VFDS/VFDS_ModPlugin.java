@@ -39,6 +39,10 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
         if (IS_VFDS) {
             Global.getSector().getPlayerStats().addPoints(100);
+
+            if(Global.getSector().getPlayerStats().getStoryPoints() < 1){
+                Global.getSector().getPlayerStats().addStoryPoints(100);
+            }
         }
 
         if (SAFE_DEVMODE || AUTO_DEVMODE) {
@@ -100,7 +104,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
         @Override
         public boolean runWhilePaused() {
-            return false;
+            return true;
         }
 
         @Override
