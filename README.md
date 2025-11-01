@@ -29,7 +29,9 @@ Note: "Safe Devmode" is enabled without active Lunalib, and "Auto devmode" disab
 
 Ability to change strings for autoset player name (separate ones for if Nexerelin is active or not).
 
-Credits:
+---
+
+## Credits:
 Vexlia Artemiss for being me and also mod author.
 
 Alex for the original "NewGameDialogPluginImpl" code which my mod builds off and replaces.
