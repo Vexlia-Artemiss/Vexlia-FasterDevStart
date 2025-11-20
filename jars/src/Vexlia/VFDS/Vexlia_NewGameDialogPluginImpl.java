@@ -1,4 +1,4 @@
-package Vexlia.VFDS.Plugins;
+package Vexlia.VFDS;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +31,10 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
         INIT,
         CONTINUE_CHOICES,
         DEVMODE_FAST_START,
-        DEVMODE_FAST_START_NO_TIME_SKIP,
+        DEVMODE_FAST_START_WITH_TIME_PASS,
+
         NEX_FAST_START,
+        NEX_FAST_START_ALT,
         LEAVE,
     }
 
@@ -107,10 +109,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             data.getCharacterData().setName(RandomName.getFullName(), RandomName.getGender());
         }
 
-        if(Global.getSettings().isDevMode()) {
-            Global.getSettings().setDevMode(false);
-        }
-
         if (state == State.OPTIONS) {
             String name = data.getCharacterData().getName();
             if (name == null || name.isEmpty()) {
@@ -179,7 +177,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
                     break;
                 case DEVMODE_FAST_START:
-                    SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
 
                     dialog.showTextPanel();
@@ -191,8 +188,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     fireBest("VFDS_DevStart_Trigger");
 
                     break;
-                case DEVMODE_FAST_START_NO_TIME_SKIP:
-                    SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
+                case DEVMODE_FAST_START_WITH_TIME_PASS:
                     SharedSettings.saveIfNeeded();
 
                     dialog.showTextPanel();
@@ -205,7 +201,6 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
                     break;
                 case NEX_FAST_START:
-                    SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
 
                     dialog.showTextPanel();
@@ -215,6 +210,18 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
                     isFVDS = true;
                     fireBest("VFDS_nex_DevStart_Trigger");
+
+                    break;
+                case NEX_FAST_START_ALT:
+                    SharedSettings.saveIfNeeded();
+
+                    dialog.showTextPanel();
+                    visual.showPersonInfo(data.getPerson(), true);
+                    options.clearOptions();
+                    state = State.CHOICES;
+
+                    isFVDS = true;
+                    fireBest("VFDS_nex_DevStart_Alt_Trigger");
 
                     break;
             }
@@ -227,11 +234,21 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
         options.addOption("Continue", OptionId.CONTINUE_CHOICES, null);
 
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) {
-            options.addOption("(VFDS) Fast Start", OptionId.DEVMODE_FAST_START, null);
-            options.addOption("(VFDS) Fast Start (No time skip)", OptionId.DEVMODE_FAST_START_NO_TIME_SKIP, null);
+            options.addOption("(VFDS) Fast Start (No time pass)", OptionId.DEVMODE_FAST_START, null);
+            options.setTooltip(OptionId.DEVMODE_FAST_START, "Normal vanilla Devmode Fast Start. Doesn't simulate 2 months.");
+            options.setTooltipHighlights(OptionId.DEVMODE_FAST_START, "Doesn't simulate 2 months.");
+
+
+            options.addOption("(VFDS) Fast Start (With time pass)", OptionId.DEVMODE_FAST_START_WITH_TIME_PASS, null);
+            options.setTooltip(OptionId.DEVMODE_FAST_START_WITH_TIME_PASS, "Normal vanilla Devmode Fast Start. Will simulate 2 months as normal game load.");
+            options.setTooltipHighlights(OptionId.DEVMODE_FAST_START_WITH_TIME_PASS, "Will simulate 2 months as normal game load.");
         }
         else if (Global.getSettings().getModManager().isModEnabled("nexerelin")) {
-            options.addOption("(VFDS) Nexerelin Fast Start", OptionId.NEX_FAST_START);
+            options.addOption("(VFDS) Nexerelin Fast Start (No time pass)", OptionId.NEX_FAST_START);
+            options.setTooltip(OptionId.NEX_FAST_START, "Recreated normal Nexerelin Fast Start. In most cases will share problems with build-in Nexerelin Fast Start");
+
+            options.addOption("(VFDS) Nexerelin Alt Fast Start (No time pass)", OptionId.NEX_FAST_START_ALT);
+            options.setTooltip(OptionId.NEX_FAST_START_ALT, "Alternative to typical Nexerelin Fast Start. Should be less prone to crashing.");
         }
 
         options.addOption("Leave", OptionId.LEAVE, null);

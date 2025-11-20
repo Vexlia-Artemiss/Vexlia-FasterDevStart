@@ -1,0 +1,10 @@
+{
+    # Note: With LunaLib, most (but not all) of these settings can be modified and saved ingame, in which case this file only serves to provide the default values
+    
+    
+    "autoDevmodeOnCampaign":true,
+    
+	"autoDevmodeOnAppStart":false,	
+	
+	"safeDevmode":true,
+}

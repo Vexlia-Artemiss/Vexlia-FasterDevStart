@@ -1,8 +1,10 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 VFDS_header,VFDS Settings,Header,Feature Settings,,,,,
-VFDS_Text,Example Text Field,Text,Some settings for VFDS.,,,,,
-VFDS_auto_devmode,AUTO DEVMODE,Boolean,false,,"Set true to enable devmode activation after game start 
+VFDS_Text,Example Text Field,Text,Some utility settings for VFDS.,,,,,
+VFDS_auto_devmode,AUTO DEVMODE,Boolean,false,,"Set true to enable devmode activation after new game start or save load.
 [Independent of start chosen and save loaded]
+",,,
+VFDS_devmode_onappstart,AUTO DEVMODE on app load,Boolean,false,,"Set true to enable devmode activation when game app loads.
 ",,,
 VFDS_safe_devmode,SAFE DEVMODE,Boolean,true,,"Set true to enable devmode switching off before saving.
 Devmode is reenabled after save, so in most cases it should be seamless.

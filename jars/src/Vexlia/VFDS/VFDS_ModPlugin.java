@@ -1,22 +1,44 @@
 package Vexlia.VFDS;
 
-import Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import exerelin.ExerelinConstants;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Priority;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class VFDS_ModPlugin extends BaseModPlugin {
 
-    public static boolean AUTO_DEVMODE = false;
-    public static boolean SAFE_DEVMODE = true;
+    public static final String CONFIG_PATH = "VFDS_config.json";
+
+    public static boolean autoDevmodeOnCampaign = false;
+    public static boolean autoDevmodeOnAppStart = false;
+    public static boolean safeDevmode = true;
+
+    public static void loadSettings()
+    {
+        try
+        {
+            System.out.println("Loading exerelinSettings");
+
+            JSONObject settings = Global.getSettings().getMergedJSONForMod(CONFIG_PATH, "Vexlia_FDS");
+
+            autoDevmodeOnCampaign = settings.optBoolean("autoDevmodeOnCampaign", autoDevmodeOnCampaign);
+            autoDevmodeOnAppStart = settings.optBoolean("autoDevmodeOnAppStart", autoDevmodeOnAppStart);
+
+            safeDevmode = settings.optBoolean("safeDevmode", safeDevmode);
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Failed to load config: " + e.getMessage(), e);
+        }
+    }
+
+
 
     private static boolean IS_VFDS = false;
 
@@ -25,8 +47,12 @@ public class VFDS_ModPlugin extends BaseModPlugin {
     public static org.apache.log4j.Logger log = Global.getLogger(VFDS_ModPlugin.class);
 
     public void onApplicationLoad() throws JSONException, IOException {
-
+        loadSettings();
         LunaSettingsCheck();
+
+        if (autoDevmodeOnAppStart) {
+            Global.getSettings().setDevMode(true);
+        }
     }
 
     //Help me
@@ -45,10 +71,11 @@ public class VFDS_ModPlugin extends BaseModPlugin {
             }
         }
 
-        if (SAFE_DEVMODE || AUTO_DEVMODE) {
+        if (safeDevmode || autoDevmodeOnCampaign) {
             Global.getSector().addScript(new NewGameDevmodeForcer());
         }
     }
+
     @Override
     public void beforeGameSave() {
         super.beforeGameSave();
@@ -59,7 +86,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
             isActiveDevmode = Global.getSettings().isDevMode();
         }
 
-        if (SAFE_DEVMODE) {
+        if (safeDevmode) {
             Global.getSettings().setDevMode(false);
         }
     }
@@ -70,7 +97,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
         LunaSettingsCheck();
 
-        if (AUTO_DEVMODE){
+        if (autoDevmodeOnCampaign){
             Global.getSettings().setDevMode(true);
         }
     }
@@ -81,7 +108,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
         LunaSettingsCheck();
 
-        if (SAFE_DEVMODE && isActiveDevmode) {
+        if (safeDevmode && isActiveDevmode) {
             Global.getSettings().setDevMode(true);
             isActiveDevmode = false;
         }
@@ -89,8 +116,10 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
     void LunaSettingsCheck(){
         if (Global.getSettings().getModManager().isModEnabled("lunalib")) {
-            AUTO_DEVMODE = LunaSettings.getBoolean("Vexlia_FDS", "VFDS_auto_devmode");
-            SAFE_DEVMODE = LunaSettings.getBoolean("Vexlia_FDS", "VFDS_safe_devmode");
+            autoDevmodeOnCampaign = LunaSettings.getBoolean("Vexlia_FDS", "VFDS_auto_devmode");
+            autoDevmodeOnAppStart = LunaSettings.getBoolean("Vexlia_FDS", "VFDS_devmode_onappstart");
+
+            safeDevmode = LunaSettings.getBoolean("Vexlia_FDS", "VFDS_safe_devmode");
         }
     }
 
@@ -109,7 +138,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
 
         @Override
         public void advance(float amount) {
-            if(!Global.getSettings().isDevMode() && AUTO_DEVMODE){
+            if(!Global.getSettings().isDevMode() && autoDevmodeOnCampaign){
                 Global.getSettings().setDevMode(true);
                 done = true;
 

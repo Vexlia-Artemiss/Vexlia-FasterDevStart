@@ -7,13 +7,10 @@
 	
 	#You can copy plugin override from here
 	"plugins":{
-		"newGameDialogPlugin":"Vexlia.VFDS.Plugins.Vexlia_NewGameDialogPluginImpl",
+		"newGameDialogPlugin":"Vexlia.VFDS.Vexlia_NewGameDialogPluginImpl",
 	},
 
 
-    "ruleCommandPackages":[
-        "Vexlia.VFDS.rulecmd"
-    ],
 
     # This section is where we can define images that can be referenced ingame using Global.getSettings().getSpriteName("category", "name");
 	#"graphics":{
