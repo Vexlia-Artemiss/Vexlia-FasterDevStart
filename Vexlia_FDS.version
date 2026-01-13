@@ -14,10 +14,9 @@
     {
       "major": 1,
       "minor": 5,
-      "patch": a # Can be a number, character or string (1, 2, a, b, "-RC2", etc)
+      "patch": b # Can be a number, character or string (1, 2, a, b, "-RC2", etc)
     },
 	
 	"modThreadId": 34394, # eg 8181
-	"directDownloadURL": "https://github.com/Vexlia-Artemiss/Vexlia-FasterDevStart/releases/latest/download/Vexlia.Faster.DevStart.zip",
-
+	"directDownloadURL": "https://github.com/Vexlia-Artemiss/Vexlia-FasterDevStart/releases/latest/download/Vexlia_FasterDevStart.zip",
 }

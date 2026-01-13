@@ -320,7 +320,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
         String testedArray[] = currentString.split("");
 
-        String validString = "0123456789GFE";
+        String validString = "123456789GFE";
         List<String> validArray = Arrays.stream(validString.split("")).toList();
 
         for (String s : testedArray) {

@@ -22,22 +22,22 @@ VFDS_NexerelinLastName,Mexerelin First Name,String,NexFastStart,,Change if you w
 ,,,,,,,,
 ,,,,,,,,
 VFDS_header3,VFDS Settings,Header,Customised start sequance settings,,,,,
-VFDS_Text2,Example Text Field,Text,"Disclaimer: Mod uses combination of Java Robot's Class and rules to press keyboard using code. It most likely aren't compatable with some systems and could also type outside the game if you not careful. Of course sequance is limited and not desgned to softlock anything, but I can't guruanty perfect operation in all surcamstances.",,,,,
+VFDS_Text2,Example Text Field,Text,"[Disclaimer: Mod uses combination of Java Robot's Class. It most likely isn't compatible with some OS and could also type outside the game if you are not careful. Of course the sequence is limited and not designed to softlock anything, but I can't guarantee perfect operation in all circumstances.]",,,,,
 VFDS_Spacer3,Example Text Field,Text,              ,,,,,
-VFDS_Text3,Example Text Field,Text,"Fill string below for customisable start option.
+VFDS_Text3,Example Text Field,Text,"Fill the string below for a customisable start option.
 
 String is read from left to right and accepts one letter symbols:
-[0-9] numbers 
+[1-9] numbers corresponding to options in dialogue
 [G] for skill select/start game screen
-[F] for selecting fleet (based on selecter after sequance string)
-[ESC] for escape
+[F] for selecting fleet (type chosen based on selector lower is settings)
+[E] for escape
 
-For example string ""112E"" will result in choosing option 1, then optin 1 again, then option 2, and lastly escape""
-
-
+For example string ""[112E]"" will result in choosing option 1, then option 1 again, then option 2, and lastly escape""
 
 
 ",,,,,
 VFDS_CustomisedStartOrder,Customised Start Hotkey Order,String,,,,,,
-VFDS_CustomisedStart_Fleet,Fleet type Selection,Radio,COMBAT_SMALL,"SOLO, COMBAT_SMALL, TRADE_SMALL, EXPLORER_SMALL, CARRIER_SMALL, COMBAT_LARGE, TRADE_LARGE, CARRIER_LARGE, SUPER, GRAND_FLEET","Passes selected to rule caled by using ""F"" symbol in string",,,
-VFDS_CustomisedStart_Delay,Delay between sequance actions,Double,0.875,,"How strongly the background is darkened while the console is open. 1 is fully dark, 0 is completely visible",0.05,1.5,
+VFDS_CustomisedStart_Fleet,Fleet type Selection,Radio,COMBAT_SMALL,"SOLO, COMBAT_SMALL, TRADE_SMALL, EXPLORER_SMALL, CARRIER_SMALL, COMBAT_LARGE, TRADE_LARGE, CARRIER_LARGE, SUPER, GRAND_FLEET","Passes selected to rule called by using ""F"" symbol in string.
+
+[MAKE SURE FLEET TYPE YOU USING IS PRESENT WHEN CALL HAPPENS.]",,,
+VFDS_CustomisedStart_Delay,Delay between sequence actions,Double,0.5,,"Delay between each input is seconds. From my testing even 0.05 works well. ""G"" input has additional delay to account for skill screen loading.",0.05,1.5,

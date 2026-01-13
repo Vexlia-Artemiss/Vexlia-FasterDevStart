@@ -67,5 +67,5 @@ FireBest ExerelinNGCStep4
 FireBest ExerelinNGCStep4Plus",,,
 ,,,,,,
 ,,,,,,
-VFDS_SequenceFinal,VFDS_SequenceFinished_Trigger,,"AddText ""Customised start sequance is finished""",,,
+VFDS_SequenceFinal,VFDS_SequenceFinished_Trigger,,"AddText ""Customised start sequence is finished""",,,
 VFDS_getDialogue,ExerelinNGCStep1,,VFDS_getDialogueAPI,,,
