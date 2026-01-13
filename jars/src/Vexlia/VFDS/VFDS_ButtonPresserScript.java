@@ -164,7 +164,6 @@ public class VFDS_ButtonPresserScript implements EveryFrameCombatPlugin {
     private MemoryAPI memory;
     private SectorEntityToken entity;
 
-
     public boolean fireBest(String trigger) {
         entity = dialog.getInteractionTarget();
         memory = entity.getMemoryWithoutUpdate();
@@ -173,15 +172,6 @@ public class VFDS_ButtonPresserScript implements EveryFrameCombatPlugin {
 
         return FireBest.fire(null, dialog, memoryMap, trigger);
     }
-
-
-    private boolean isStringValid(String[] testedString) {
-        boolean isValid = false;
-
-
-        return isValid;
-    }
-
 
     @Override
     public void init(CombatEngineAPI engine) {}
