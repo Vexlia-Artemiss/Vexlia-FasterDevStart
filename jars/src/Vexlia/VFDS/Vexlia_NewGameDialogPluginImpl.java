@@ -1,7 +1,6 @@
 package Vexlia.VFDS;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
@@ -15,6 +14,7 @@ import com.fs.starfarer.api.impl.campaign.DevMenuOptions;
 import com.fs.starfarer.api.impl.campaign.rulecmd.DumpMemory;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireAll;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireBest;
+import com.fs.starfarer.campaign.rules.Memory;
 import lunalib.lunaSettings.LunaSettings;
 
 public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
@@ -26,6 +26,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
     public static String CAMPAIGN_HELP_POPUPS_OPTION_CHECKED = "campaignHelpPopupsOptionChecked";
 
     public static boolean isFVDS = false;
+    public static boolean customisedStart = false;
 
     private static enum OptionId {
         INIT,
@@ -35,6 +36,8 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
 
         NEX_FAST_START,
         NEX_FAST_START_ALT,
+
+        CUSTOMISED_START,
         LEAVE,
     }
 
@@ -56,6 +59,9 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
     private MemoryAPI memory;
 
     public void init(InteractionDialogAPI dialog) {
+        isFVDS = false;
+        customisedStart = false;
+
         this.dialog = dialog;
         textPanel = dialog.getTextPanel();
         options = dialog.getOptionPanel();
@@ -160,6 +166,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     SharedSettings.setBoolean(CAMPAIGN_HELP_POPUPS_OPTION_CHECKED, data.isCampaignHelpEnabled());
                     SharedSettings.saveIfNeeded();
                     isFVDS = false;
+                    customisedStart = false;
                     dialog.dismissAsCancel();
 
                     break;
@@ -173,7 +180,9 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
 
                     isFVDS = false;
+                    customisedStart = false;
                     fireBest("BeginNewGameCreation");
+                    SectorAPI sector =  Global.getSector();
 
                     break;
                 case DEVMODE_FAST_START:
@@ -185,6 +194,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
 
                     isFVDS = true;
+                    customisedStart = false;
                     fireBest("VFDS_DevStart_Trigger");
 
                     break;
@@ -197,6 +207,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
 
                     isFVDS = true;
+                    customisedStart = false;
                     fireBest("VFDS_DevStart_NoTimeSkip_Trigger");
 
                     break;
@@ -209,6 +220,7 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
 
                     isFVDS = true;
+                    customisedStart = false;
                     fireBest("VFDS_nex_DevStart_Trigger");
 
                     break;
@@ -221,7 +233,24 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
                     state = State.CHOICES;
 
                     isFVDS = true;
+                    customisedStart = false;
                     fireBest("VFDS_nex_DevStart_Alt_Trigger");
+                    break;
+                case CUSTOMISED_START:
+                    SharedSettings.saveIfNeeded();
+
+                    dialog.showTextPanel();
+                    visual.showPersonInfo(data.getPerson(), true);
+                    options.clearOptions();
+                    state = State.CHOICES;
+
+                    String fleetType = LunaSettings.getString("Vexlia_FDS", "VFDS_CustomisedStartOrder");
+                    Memory mem2 =  new Memory();
+                    mem2.set("$Fleet", fleetType);
+                    memoryMap.put("$VFDS_FLEET_TYPE", mem2);
+                    customisedStart = true;
+                    isFVDS = true;
+                    fireBest("BeginNewGameCreation");
 
                     break;
             }
@@ -251,6 +280,22 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
             options.setTooltip(OptionId.NEX_FAST_START_ALT, "Alternative to typical Nexerelin Fast Start. Should be less prone to crashing.");
         }
 
+        options.addOption("(VFDS) User customisable start", OptionId.CUSTOMISED_START);
+
+        String tooltip = "Current sequence string: " + LunaSettings.getString("Vexlia_FDS", "VFDS_CustomisedStartOrder") + "\n\nUses string defined in mod's Lunalib settings to press hotkeys in customisable order. If string empty or invalid option will be disabled. Treated as fast start after game load (adds skill and story points)";
+        options.setTooltip(OptionId.CUSTOMISED_START, tooltip);
+
+        if(Objects.requireNonNull(LunaSettings.getString("Vexlia_FDS", "VFDS_CustomisedStartOrder")).isEmpty()) {
+            options.setEnabled(OptionId.CUSTOMISED_START, false);
+
+            options.setTooltip(OptionId.CUSTOMISED_START, "START SEQUENCE STRING IS EMPTY - FILL IT IN LUNASETTINGS\n\n" +tooltip);
+        }
+        else if (!isStringValid(Objects.requireNonNull(LunaSettings.getString("Vexlia_FDS", "VFDS_CustomisedStartOrder")))) {
+            options.setEnabled(OptionId.CUSTOMISED_START, false);
+
+            options.setTooltip(OptionId.CUSTOMISED_START, "START SEQUENCE STRING IS INVALID - FIX IT IN LUNASETTINGS\n\n" +tooltip);
+        }
+
         options.addOption("Leave", OptionId.LEAVE, null);
     }
 
@@ -269,4 +314,23 @@ public class Vexlia_NewGameDialogPluginImpl implements InteractionDialogPlugin {
     public boolean fireBest(String trigger) {
         return FireBest.fire(null, dialog, memoryMap, trigger);
     }
+
+    private boolean isStringValid(String currentString) {
+        boolean isValid = true;
+
+        String testedArray[] = currentString.split("");
+
+        String validString = "0123456789GFE";
+        List<String> validArray = Arrays.stream(validString.split("")).toList();
+
+        for (String s : testedArray) {
+            if (isValid) {
+                if (validArray.contains(s)) {
+                    isValid = true;
+                } else isValid = false;
+            }
+        }
+        return isValid;
+    }
+
 }

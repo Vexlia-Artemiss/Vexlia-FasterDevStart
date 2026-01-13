@@ -8,6 +8,8 @@
 	#You can copy plugin override from here
 	"plugins":{
 		"newGameDialogPlugin":"Vexlia.VFDS.Vexlia_NewGameDialogPluginImpl",
+		
+		"NewCombatplugin":"Vexlia.VFDS.VFDS_ButtonPresserScript",
 	},
 
 

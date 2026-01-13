@@ -3,6 +3,7 @@ package Vexlia.VFDS;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.SectorAPI;
 import exerelin.ExerelinConstants;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Priority;
@@ -55,6 +56,7 @@ public class VFDS_ModPlugin extends BaseModPlugin {
         }
     }
 
+    
     //Help me
 
     @Override
@@ -74,6 +76,11 @@ public class VFDS_ModPlugin extends BaseModPlugin {
         if (safeDevmode || autoDevmodeOnCampaign) {
             Global.getSector().addScript(new NewGameDevmodeForcer());
         }
+
+        SectorAPI sector =  Global.getSector();
+
+        //sector.addScript(new VFDS_ButtonPresserScript());
+
     }
 
     @Override

@@ -25,7 +25,7 @@ NGCAddCharacterPoints 0
 #NGCSetStartingLocation Galatia 1000 -13000
 NGCSetStartingLocation hyperspace -10000 -10000
 NGCSetDifficulty normal
-NGCSetWithTimePass true
+NGCSetWithTimePass false
 NGCSetCustom customDevStart true
 NGCAddDevStartingScript
 NGCDone",,,
@@ -61,3 +61,11 @@ NGCSetNumStartingOfficers 0 true
 FireBest NewGameBackgroundSelection
 NGCSetWithTimePass false
 NGCDone",,,
+,,,,,,
+VFDS_CustomisedStart,VFDS_Customised_Start_Trigger,,"VFDS_addFleetWithCustomtype
+FireBest ExerelinNGCStep4
+FireBest ExerelinNGCStep4Plus",,,
+,,,,,,
+,,,,,,
+VFDS_SequenceFinal,VFDS_SequenceFinished_Trigger,,"AddText ""Customised start sequance is finished""",,,
+VFDS_getDialogue,ExerelinNGCStep1,,VFDS_getDialogueAPI,,,
