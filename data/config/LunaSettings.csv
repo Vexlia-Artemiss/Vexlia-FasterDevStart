@@ -12,7 +12,7 @@ Devmode is reenabled after save, so in most cases it should be seamless.
 [Should prevent crashes for mods which can't create saves with active devmode.]",,,
 ,,,,,,,,
 VFDS_header2,VFDS Settings,Header,Autoset Name Settings,,,,,
-VFDS_Text,Example Text Field,Text,I have gonne with static default name as it makes cleaning save folder much easier. You can change them bellow for any reason.,,,,,
+VFDS_Text,Example Text Field,Text,"I have gone with the static default name as it makes cleaning the save folder much easier, and implementation much simpler. You can change them below for any reason.",,,,,
 VFDS_Spacer1,Example Text Field,Text,              ,,,,,
 VFDS_FirstName,Default First Name,String,DevMode,,Change if you want to customize the autoset first name.,,,
 VFDS_LastName,Default Last Name,String,FastStart,,Change if you want to customize the autoset last name.,,,
@@ -21,8 +21,8 @@ VFDS_NexerelinFirstName,Nexerelin First Name,String,DevMode,,Change if you want 
 VFDS_NexerelinLastName,Mexerelin First Name,String,NexFastStart,,Change if you want to customize the autoset last name for [when Nexerelin is active].,,,
 ,,,,,,,,
 ,,,,,,,,
-VFDS_header3,VFDS Settings,Header,Customised start sequance settings,,,,,
-VFDS_Text2,Example Text Field,Text,"[Disclaimer: Mod uses combination of Java Robot's Class. It most likely isn't compatible with some OS and could also type outside the game if you are not careful. Of course the sequence is limited and not designed to softlock anything, but I can't guarantee perfect operation in all circumstances.]",,,,,
+VFDS_header3,VFDS Settings,Header,Customised start sequence settings,,,,,
+VFDS_Text2,Example Text Field,Text,"[Disclaimer: For customised start mod uses Java Robot's Class. It most likely isn't compatible with some OS and could also type outside the game if you are not careful. Of course the sequence is limited and not designed to softlock anything, but I can't guarantee perfect operation in all circumstances.]",,,,,
 VFDS_Spacer3,Example Text Field,Text,              ,,,,,
 VFDS_Text3,Example Text Field,Text,"Fill the string below for a customisable start option.
 
@@ -32,7 +32,7 @@ String is read from left to right and accepts one letter symbols:
 [F] for selecting fleet (type chosen based on selector lower is settings)
 [E] for escape
 
-For example string ""[112E]"" will result in choosing option 1, then option 1 again, then option 2, and lastly escape""
+For example string ""[112E]"" will result in choosing option 1, then option 1 again, then option 2, and lastly ""escape""
 
 
 ",,,,,
@@ -40,4 +40,4 @@ VFDS_CustomisedStartOrder,Customised Start Hotkey Order,String,,,,,,
 VFDS_CustomisedStart_Fleet,Fleet type Selection,Radio,COMBAT_SMALL,"SOLO, COMBAT_SMALL, TRADE_SMALL, EXPLORER_SMALL, CARRIER_SMALL, COMBAT_LARGE, TRADE_LARGE, CARRIER_LARGE, SUPER, GRAND_FLEET","Passes selected to rule called by using ""F"" symbol in string.
 
 [MAKE SURE FLEET TYPE YOU USING IS PRESENT WHEN CALL HAPPENS.]",,,
-VFDS_CustomisedStart_Delay,Delay between sequence actions,Double,0.5,,"Delay between each input is seconds. From my testing even 0.05 works well. ""G"" input has additional delay to account for skill screen loading.",0.05,1.5,
+VFDS_CustomisedStart_Delay,Delay between sequence actions,Double,0.2,,"Delay between each input is seconds. From my testing even 0.05 works well. ""G"" input has additional delay to account for skill screen loading.",0.05,1.5,
