@@ -17,24 +17,9 @@ import java.util.Map;
 public class Nex_NGCPrintFactionDesc extends BaseCommandPlugin {
 
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
-        String factionId = memoryMap.get(MemKeys.LOCAL).getString("$playerFaction");
-        try {
-            Description desc = Global.getSettings().getDescription(factionId, Description.Type.FACTION);
-            FactionAPI faction = Global.getSector().getFaction(factionId);
-            TooltipMakerAPI tt = dialog.getTextPanel().beginTooltip();
-            TooltipMakerAPI sub = tt.beginImageWithText(faction.getCrest(), 64);
-            String str = desc.getText1FirstPara();
-            if (faction.isPlayerFaction()) {
-                str = StringHelper.getString("exerelin_ngc", "factionDesc_player");
-            }
-            if (!str.isBlank() && !str.equals("No description... yet")) {
-                sub.addPara(str, 0);
-                tt.addImageWithText(0);
-                dialog.getTextPanel().addTooltip();
-            }
-        } catch (Exception ex) {
+        if (dialog == null) return false;
 
-        }
+        //Rules studd for non nexerelin to work
         return true;
     }
 }

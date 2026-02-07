@@ -50,22 +50,22 @@ public class Nex_NGCStartResources extends BaseCommandPlugin {
 				return false;
 		}
 	}
-	
+
 	protected void createSliders(OptionPanelAPI opts, Map<String, MemoryAPI> memoryMap)
 	{
 		ExerelinSetupData data = ExerelinSetupData.getInstance();
-		
-		opts.addSelector(getString("startingLevelTitle"), "startLevelSelector", Color.GREEN, BAR_WIDTH, 48, 
+
+		opts.addSelector(getString("startingLevelTitle"), "startLevelSelector", Color.GREEN, BAR_WIDTH, 48,
 				1, 8,	// min, max
 				ValueDisplayMode.VALUE, null);
 		opts.setSelectorValue("startLevelSelector", 1);
-		
-		opts.addSelector(getString("startingCreditsTitle"), "startCreditsSelector", Color.YELLOW, BAR_WIDTH, 48, 
+
+		opts.addSelector(getString("startingCreditsTitle"), "startCreditsSelector", Color.YELLOW, BAR_WIDTH, 48,
 				0, 300,	// min, max
 				ValueDisplayMode.VALUE, null);
 		opts.setSelectorValue("startCreditsSelector", 20);
-		
-		opts.addSelector(getString("startingOfficersTitle"), "startOfficersSelector", Color.CYAN, BAR_WIDTH, 48, 
+
+		opts.addSelector(getString("startingOfficersTitle"), "startOfficersSelector", Color.CYAN, BAR_WIDTH, 48,
 				0, 4,	// min, max
 				ValueDisplayMode.VALUE, null);
 		opts.setSelectorValue("startOfficersSelector", data.numStartingOfficers);
@@ -74,9 +74,9 @@ public class Nex_NGCStartResources extends BaseCommandPlugin {
 				0, 2,	// min, max
 				ValueDisplayMode.VALUE, null);
 		opts.setSelectorValue("startOperativesSelector", data.numStartingOperatives);
-		
+
 		MemoryAPI local = memoryMap.get(MemKeys.LOCAL);
-		if (true && local.contains("$nex_lastSelectedFleetType")) 
+		if (true && local.contains("$nex_lastSelectedFleetType"))
 		{
 			StartFleetType type = StartFleetType.getType(local.getString("$nex_lastSelectedFleetType"));
 			if (type != StartFleetType.CUSTOM && type != StartFleetType.SUPER) {
@@ -88,44 +88,44 @@ public class Nex_NGCStartResources extends BaseCommandPlugin {
 						"fleetCustomRepick")), "nex_NGCStep4FleetReroll");
 			}
 		}
-		
+
 		opts.addOption(StringHelper.getString("back", true), "nex_NGCStartBack");
 	}
-	
+
 	protected void saveValues(OptionPanelAPI opts, TextPanelAPI text, MemoryAPI mem)
 	{
 		CharacterCreationData charData = (CharacterCreationData) mem.get("$characterData");
 		ExerelinSetupData setupData = ExerelinSetupData.getInstance();
-		
+
 		int level = Math.round(opts.getSelectorValue("startLevelSelector"));
 		long xp = Global.getSettings().getLevelupPlugin().getXPForLevel(level);
 		int credits = Math.round(opts.getSelectorValue("startCreditsSelector")) * 1000;
 		int officers = Math.round(opts.getSelectorValue("startOfficersSelector"));
 		int operatives = Math.round(opts.getSelectorValue("startOperativesSelector"));
 		Global.getLogger(this.getClass()).info(String.format("bla: %s, %s, %s, %s", level, xp, credits, officers));
-		
+
 		charData.getPerson().getStats().addXP(xp);
-		Nex_NGCAddLevel.addXPGainText(xp, text);
-		
+		//Nex_NGCAddLevel.addXPGainText(xp, text);
+
 		int storyPoints = (level - 1) * Global.getSettings().getInt("storyPointsPerLevel");
 		charData.getPerson().getStats().addStoryPoints(storyPoints, text, false);
-		
+
 		charData.getStartingCargo().getCredits().add(credits);
 		AddRemoveCommodity.addCreditsGainText(credits, text);
-		
+
 		setupData.numStartingOfficers = officers;
 		NGCSetNumStartingOfficers.addOfficersGainText(officers, text);
 
 		setupData.numStartingOperatives = operatives;
 		NGCSetNumStartingOfficers.addOfficersGainText(operatives, text, true);
-		
+
 		opts.clearOptions();
 		opts.addOption(StringHelper.getString("done", true), "nex_NGCDone");
 	}
-	
+
 	protected void rerollRandomShips(Map<String, MemoryAPI> memoryMap) {
 		String fleetTypeStr = memoryMap.get(MemKeys.LOCAL).getString("$nex_lastSelectedFleetType");
-		
+
 		NexFactionConfig factionConf = NexConfig.getFactionConfig(
 				PlayerFactionStore.getPlayerFactionIdNGC());
 		List<String> startingVariants = factionConf.getStartFleetForType(fleetTypeStr, false, -1);

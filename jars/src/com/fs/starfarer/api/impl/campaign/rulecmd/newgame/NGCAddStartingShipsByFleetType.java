@@ -127,6 +127,6 @@ public class NGCAddStartingShipsByFleetType extends BaseCommandPlugin {
 	 */
 	@Deprecated
 	public static void addStartingDModScript(MemoryAPI localMem) {
-		Nex_NGCFinalize.addStartingDModScript(localMem);
+		//Nex_NGCFinalize.addStartingDModScript(localMem);
 	}
 }

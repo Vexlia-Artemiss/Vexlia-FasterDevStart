@@ -18,34 +18,9 @@ import java.util.Map;
 public class Nex_NGCFinalize extends BaseCommandPlugin {
 	@Override
 	public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
-		ExerelinSetupData data = ExerelinSetupData.getInstance();
-		if (data.startScenario != null) {
-			ScenarioManager.prepScenario(data.startScenario);
-		}
-		if ("tutorialStart".equals(memoryMap.get(MemKeys.LOCAL).getString("$nex_customStart"))) 
-		{
-			CharacterCreationData ccd = (CharacterCreationData) memoryMap.get(MemKeys.LOCAL).get("$characterData");
-			if (ccd.getPerson().getStats().getLevel() == 1) {
-				ccd.getPerson().getStats().addPoints(-1);
-			}
-		}
+		if (dialog == null) return false;
 
-		addStartingDModScript(memoryMap.get(MemKeys.LOCAL));
-		
+		//Rules studd for non nexerelin to work
 		return true;
-	}
-
-	public static void addStartingDModScript(MemoryAPI localMem) {
-		CharacterCreationData data = (CharacterCreationData)localMem.get("$characterData");
-		data.addScript(new Script() {
-			public void run() {
-				CampaignFleetAPI fleet = Global.getSector().getPlayerFleet();
-				if (fleet.getMemoryWithoutUpdate().contains("$nex_addedStartingDMods"))
-					return;
-				NexUtilsFleet.addDMods(fleet, ExerelinSetupData.getInstance().dModLevel);
-				fleet.getFleetData().syncIfNeeded();
-				fleet.getMemoryWithoutUpdate().set("$nex_addedStartingDMods", true, 5);
-			}
-		});
 	}
 }
