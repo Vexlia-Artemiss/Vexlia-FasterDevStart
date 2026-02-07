@@ -78,6 +78,13 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+
+.idea/
+.run/
+.gitattributes
+.git/
+.github/
+
 # Sonarlint plugin
 .idea/sonarlint
 
